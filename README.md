@@ -142,9 +142,9 @@ end
 **Faulty & Non-Faulty Cipher**
 
 [Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) encrypted in three modes which is determined by *faultee*.
-*   *faultee* is 0, cipher is correct.
-*   *faultee* is 1, fault is injected at the beginning of round 10.
-*   *faultee is bigger than 1, fault is injected at the beginning of round faultee-10.
+*   faultee is 0, cipher is correct.
+*   faultee is 1, fault is injected at the beginning of round 10.
+*   faultee is bigger than 1, fault is injected at the beginning of round faultee-10.
 
 
 ```matlab
@@ -308,7 +308,7 @@ end
 
 
 #### Missrate 
-In all cases, key and palintext is considered as random. We define missrate such that, a fault can not be injected. So in this case, faultee should be 0. We define a random function to create random 0 or 1 value for desired missrate.
+ We define missrate such that, a fault can not be injected. So in this case, faultee should be 0. We define a random vector to create random 0 or 1 values for desired missrate.
 
 ```matlab
 Pe=100*missrate;
@@ -383,6 +383,9 @@ for key_g=0:255
 
 ```
 ### Key Recovery
+
+Here, we rank the key.
+
 ```matlab
    rank_eff_sei(key_n,i)=sum(SEI_e(key_n,i,:)>=SEI_e(key_n,i,key_b_0+1));
    rank_ineff_sei(key_n,i)=sum(SEI_i(key_n,i,:)>=SEI_i(key_n,i,key_b_0+1));
