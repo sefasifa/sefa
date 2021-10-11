@@ -55,10 +55,9 @@ end
 % Apply the just created index matrix to the input matrix.
 % Elements of the index matrix are linear (column-wise) indices.
 matrix_out = matrix_in (ind_mat);
-end
 function state_out = shift_rows (state_in)
 %SHIFT_ROWS  Cyclically shift the rows of the state matrix.
-%
+
 
 state_out = cycle (state_in, 'left');
 
