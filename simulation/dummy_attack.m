@@ -21,15 +21,8 @@ Sel_R=10*k;% fault is injected to the last dummy round
 %%%%%%%%%%%%%%%following function returns the plot of average for SEI and
 %%%%%%%%%%%%%%%LLR
 
-subplot(1,2,1)
 plot(mean(rank_eff_sei(1:key_t-1,:),1),'b')
 hold on
 plot(mean(rank_ineff_sei(1:key_t-1,:),1),'r')
 hold on
 plot(mean(rank_joint_sei(1:key_t-1,:),1),'g')
-subplot(1,2,2)
-plot(mean(rank_eff_llr(1:key_t-1,:),1),'b')
-hold on
-plot(mean(rank_ineff_llr(1:key_t-1,:),1),'r')
-hold on
-plot(mean(rank_joint_llr(1:key_t-1,:),1),'g')
