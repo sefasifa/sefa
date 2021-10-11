@@ -141,7 +141,8 @@ end
 **This part is used to creates a faulty/non-faulty cipher**
 
 Faults are injected at the beginning of round 10 in these three situations: Regular fault, missrate faults and Error-Correcting mode. In Dummy-Rounds situation, 
-faults can be injected in different rounds, or even in dummies. In cipher Functions, *faultee* shows faulty or non-faulty computations. 
+faults can be injected in different rounds, or even in dummies. In cipher Functions, *faultee* shows faulty or non-faulty computations. When *faultee==0*, the cipher is correct
+and fault is not injected.
 
 ```matlab
 function [ciphertext,partialstate,round_key] = cipher (plaintext, w, s_box, poly_mat, vargin,faultee,faultvalue)
@@ -244,6 +245,99 @@ state = add_round_key (state, round_key);
 ciphertext = reshape (state, 1, 16);
 
 ```
+#### Regular-Fault 
+In all cases, key and palintext is considered as random. The total number of random key which is considered is key_t and  sample_t show number of random plaintext for each key_t. For each sample, faulty *(cipherc)* and non-faulty *(cipherf)* encryption is computed. In any faulty encryption *fb* bits is injected.   
+
+```matlab
+function [key_col,cipherc,cipherf]=regularfault(sample_t,key_t,fb)
+key_col=cell(1,1000);
+cipherc=zeros(16,15000,100);
+cipherf=zeros(16,15000,100);
+    for key_n=1:key_t
+        key(1,1)=round(rand*255)  ;
+        key(2,1)=round(rand*255)  ;
+        key(3,1)=round(rand*255)  ;
+        key(4,1)=round(rand*255)  ;
+        key(5,1)=round(rand*255)  ;
+        key(6,1)=round(rand*255)  ;
+        key(7,1)=round(rand*255)  ;
+        key(8,1)=round(rand*255)  ;
+        key(9,1)=round(rand*255)  ;
+        key(10,1)=round(rand*255) ;
+        key(11,1)=round(rand*255) ;
+        key(12,1)=round(rand*255) ;
+        key(13,1)=round(rand*255) ;
+        key(14,1)=round(rand*255) ;
+        key(15,1)=round(rand*255) ;
+        key(16,1)=round(rand*255) ;
+        key_col{key_n} = {dec2hex(key)};
+        SS=reshape(key,1,16);
+        key_hex=dec2hex(SS);
+        [s_box, inv_s_box, w, poly_mat, inv_poly_mat] = aes_init(key_hex);
+            for i=1:sample_t
+                faultee=1;
+                plaintext(1,1)=round(rand*255);
+                plaintext(2,1)=round(rand*255);
+                plaintext(3,1)=round(rand*255);
+                plaintext(4,1)=round(rand*255);
+                plaintext(5,1)=round(rand*255);
+                plaintext(6,1)=round(rand*255);
+                plaintext(7,1)=round(rand*255);
+                plaintext(8,1)=round(rand*255);
+                plaintext(9,1)=round(rand*255);
+                plaintext(10,1)=round(rand*255);
+                plaintext(11,1)=round(rand*255);
+                plaintext(12,1)=round(rand*255);
+                plaintext(13,1)=round(rand*255);
+                plaintext(14,1)=round(rand*255);
+                plaintext(15,1)=round(rand*255);
+                plaintext(16,1)=round(rand*255);
+                faultvalue=bitxor((256-(2^fb)),round(rand*((2^fb)-1)));
+                [ciphertext,] = cipher (plaintext, w, s_box, poly_mat,0,0,faultvalue);
+                cipherc(:,i,key_n)=ciphertext;
+                [ciphertextf,] = cipher (plaintext, w, s_box, poly_mat,0,faultee,faultvalue);
+                cipherf(:,i,key_n)=ciphertextf;
+            end
+    end
+end
+```
+
+
+#### Missrate 
+In all cases, key and palintext is considered as random. We define missrate such that, a fault can not be injected. So in this case, faultee should be 0. We define a random function to create random 0 or 1 value for desired missrate.
+
+```matlab
+Pe=100*missrate;
+random_f= round(Pe*rand(key_t,sample_t));
+random_f(:)=(random_f(:)<100-Pe);
+exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
+```
+#### Dummy Round 
+ In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. If the considered SEL_R which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, *faultee* shoulde be equal to zero, otherwise the round of injecteion is added to *faultee* to specifty the number of round in **cipher** function. 
+
+```matlab
+  selected_rand=sort(round(randperm(k*10,10)));
+  if all(selected_rand(:)~=sel_R)
+      faultee=0;
+  elseif selected_rand(10)==sel_R
+      faultee=1;
+  else
+      fault_R=find(selected_rand==sel_R);
+      faultee=fault_R+10;
+  end
+```
+#### Error-Correction Mode
+We consider that in this mode d' bit faults can be corrected. In this case, when the HW of injection is less than d', plaintexte encrypted in non-faulty mode. 
+
+```matlab
+    hw=8-sum(data_fault(:,:)==1);
+    if hw<=d'
+        faultee=0;
+    end
+```
+
+
+
 ### SEI and LLR Computation
  In this part we compute the inverse of CIPHERC to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. 
 ```matlab
@@ -285,10 +379,14 @@ for key_g=0:255
 
 ```
 ### Key Recovery
-
-
-
-
+```matlab
+   rank_eff_sei(key_n,i)=sum(SEI_e(key_n,i,:)>=SEI_e(key_n,i,key_b_0+1));
+   rank_ineff_sei(key_n,i)=sum(SEI_i(key_n,i,:)>=SEI_i(key_n,i,key_b_0+1));
+   rank_joint_sei(key_n,i)=sum(SEI_joint(key_n,i,:)>=SEI_joint(key_n,i,key_b_0+1));
+   rank_eff_llr(key_n,i)=sum(LLR_E(key_n,i,:)>=LLR_E(key_n,i,key_b_0+1));
+   rank_ineff_llr(key_n,i)=sum(LLR_I(key_n,i,:)>=LLR_I(key_n,i,key_b_0+1)); 
+   rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
+```
 
 
 
