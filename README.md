@@ -11,8 +11,8 @@
 
 **Implement a faulty AES For SIFA and SEFA **
 
-For random fault, here we used the random number generator which is provided by matlab. Since the Fault which is propsed in the attack is 
-(fb) bits *random And*, the definition based on the random fault is 
+ First of all we define fault value. Here we used the random number generator which is provided by matlab for random fault,. Since the Fault which is propsed in the attack is 
+(fb) bits *random And*. 
 
 ```matlab
 faultvalue=bitxor((256-(2^fb)),round(rand*((2^fb)-1)));
