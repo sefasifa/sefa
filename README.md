@@ -245,7 +245,7 @@ ciphertext = reshape (state, 1, 16);
 
 ```
 ### SEI and LLR Computation
- In this part we compute the inverse of CIPHERC through tho the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. 
+ In this part we compute the inverse of CIPHERC to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. 
 ```matlab
 for key_g=0:255
                 if isequal(cipherc(:,i,key_n),cipherf(:,i,key_n))
