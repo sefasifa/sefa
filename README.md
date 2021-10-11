@@ -50,43 +50,7 @@ function state_out = add_round_key (state_in, round_key)
 % Add state (matrix) and round key (matrix) via bitwise XOR
 state_out = bitxor (state_in, round_key);
 end
-function matrix_out = cycle (matrix_in, direction)
 
-if strcmp (direction, 'left')
-    
-    col = (0 : 5 : 15)';
-    
-% If the matrix has to be shifted to the right,
-else
-   
-    % generate the column vector [16 13 10 7]'
-    col = (16 : -3 : 7)';
-        
-end
-
-% Generate the row vector [0 4 8 12]
-row = 0 : 4 : 12;
-
-% Repeat the column to create the matrix [ 0  0  0  0] (left shift)
-%                                        [ 5  5  5  5] 
-%                                        [10 10 10 10] 
-%                                        [15 15 15 15] 
-cols = repmat (col, 1, 4);
-
-% Repeat the row to create the matrix [0 4 8 12]
-%                                     [0 4 8 12] 
-%                                     [0 4 8 12] 
-%                                     [0 4 8 12] 
-rows = repmat (row, 4, 1);
-
-% Add both matrices,
-% fold back into the 0 ... 15 domain,
-% and add 1, because Matlab indices do start with 1
-% [ 1  5  9 13]
-% [ 6 10 14  2]
-% [11 15  3  7]
-% [16  4  8 12]
-ind_mat = mod (rows + cols, 16) + 1;
 
 % Apply the just created index matrix to the input matrix.
 % Elements of the index matrix are linear (column-wise) indices.
@@ -97,64 +61,7 @@ function state_out = shift_rows (state_in)
 %
 
 state_out = cycle (state_in, 'left');
-function state_out = mix_columns (state_in, poly_mat)
-%MIX_COLUMNS  Transform each column of the state matrix.
-%
-%   STATE_OUT = MIX_COLUMNS (STATE_IN, POLY_MAT) 
-%   operates on the state matrix STATE_IN column-by-column
-%   using POLY_MAT as the transformation matrix.
-%
-%   MIX_COLUMNS can also directly compute 
-%   the inverse column transformation INV_MIX_COLUMNS
-%   by utilizising the inverse transformation matrix INV_POLY_MAT.
 
-%   Copyright 2001-2005, J. J. Buchholz, Hochschule Bremen, buchholz@hs-bremen.de
-
-%   Version 1.0     30.05.2001
-
-% Define the irreducible polynomial 
-% to be used in the modulo operation in poly_mult
-mod_pol = bin2dec ('100011011');
-
-% Loop over all columns of the state matrix
-for i_col_state = 1 : 4
-        
-    % Loop over all rows of the state matrix
-    for i_row_state = 1 : 4
-
-        % Initialize the scalar product accumulator
-        temp_state = 0;
-        
-        % For the (innner) matrix vector product we want to do
-        % a scalar product 
-        % of the current row vector of poly_mat
-        % and the current column vector of the state matrix.
-        % Therefore we need a counter over 
-        % all elements of the current row vector of poly_mat and
-        % all elements of the current column vector of the state matrix
-        for i_inner = 1 : 4
-        
-            % Multiply (GF(2^8) polynomial multiplication)
-            % the current element of the current row vector of poly_mat with
-            % the current element of the current column vector of the state matrix
-            temp_prod = poly_mult (...
-                        poly_mat(i_row_state, i_inner), ...
-                        state_in(i_inner, i_col_state), ...
-                        mod_pol);
-            
-            % Add (XOR) the recently calculated product
-            % to the scalar product accumulator
-            temp_state = bitxor (temp_state, temp_prod);
-                        
-        end
-        
-        % Declare (save and return) the final scalar product accumulator
-        % as the current state matrix element
-        state_out(i_row_state, i_col_state) = temp_state;
-        
-    end
-    
-end
 
 
 ```
