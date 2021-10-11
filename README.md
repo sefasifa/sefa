@@ -24,6 +24,7 @@ faultvalue=bitxor((256-(2^fb)),round(rand*((2^fb)-1)));
 ```matlab
 function [s_box, inv_s_box, w, poly_mat, inv_poly_mat] = aes_init(key_hex)
 %AES_INIT  Initialisation of AES-components.
+%   Copyright 2001-2005, J. J. Buchholz, Hochschule Bremen, buchholz@hs-bremen.de
 
 
 % Create the S-box and the inverse S-box
@@ -140,12 +141,15 @@ end
 ```
 **Faulty & Non-Faulty Cipher**
 
-Faults are injected at the beginning of round 10 in these three situations: Regular fault, missrate faults and Error-Correcting mode. In Dummy-Rounds, 
-faults can be injected in different rounds, or even in dummies. In cipher Functions, *faultee* shows faulty or non-faulty computations. When *faultee==0*, the cipher is correct
-and fault is not injected.[Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) 
+[Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) encrypted in three modes which is determined by *faultee*.
+*   *faultee* is 0, cipher is correct.
+*   *faultee* is 1, fault is injected at the beginning of round 10.
+*   *faultee is bigger than 1, fault is injected at the beginning of round faultee-10.
+
 
 ```matlab
 function [ciphertext,partialstate,round_key] = cipher (plaintext, w, s_box, poly_mat, vargin,faultee,faultvalue)
+%   Copyright 2001-2005, J. J. Buchholz, Hochschule Bremen, buchholz@hs-bremen.de
 
 partialstate=zeros(4,4,9);
 %   Version 1.0     30.05.2001
