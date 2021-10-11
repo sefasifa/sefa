@@ -5,7 +5,7 @@
   * Fault by considering Missrate
   * Fault by considering Dummy Round
   * Fault in Error-Correction mode 
-* SEI and LLR calculation
+* SEI and LLR Computation
 * Key-Recovery for a byte 
 
 
@@ -139,6 +139,7 @@ if verbose_mode
 end
 ```
 **This part is used to creates a faulty/non-faulty cipher**
+
 Faults are injected at the beginning of round 10 in these three situations: Regular fault, missrate faults and Error-Correcting mode. In Dummy-Rounds situation, 
 faults can be injected in different rounds, or even in dummies. In cipher Functions, *faultee* shows faulty or non-faulty computations. 
 
@@ -243,11 +244,47 @@ state = add_round_key (state, round_key);
 ciphertext = reshape (state, 1, 16);
 
 ```
+### SEI and LLR Computation
+ In this part we compute the inverse of CIPHERC through tho the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. 
+```matlab
+for key_g=0:255
+                if isequal(cipherc(:,i,key_n),cipherf(:,i,key_n))
+                    data_d_coll_i(key_n,key_g+1,ineff)=bitand(sub_bytes(bitxor((cipherc(1,i,key_n)),key_g),inv_s_box),mask);
+                    delta_d_i(key_n,data_d_coll_i(key_n,key_g+1,ineff)+1,key_g+1)=delta_d_i(key_n,data_d_coll_i(key_n,key_g+1,ineff)+1,key_g+1)+1;
+                else
+                    data_d_coll_e(key_n,key_g+1,eff)=bitand(sub_bytes(bitxor((cipherc(1,i,key_n)),key_g),inv_s_box),mask);
+                    delta_d_e(key_n,data_d_coll_e(key_n,key_g+1,eff)+1,key_g+1)=delta_d_e(key_n,data_d_coll_e(key_n,key_g+1,eff)+1,key_g+1)+1;
+                end 
+            end 
+            for m=1:(mask+1)
+                if ni>0
+                    SEI_i(key_n,i,:)=(((delta_d_i(key_n,m,:)/ni)-(1/(mask+1))).^2)+SEI_i(key_n,i,:);
+                end
+                if ne>0
+                    SEI_e(key_n,i,:)=(((delta_d_e(key_n,m,:)/ne)-(1/(mask+1))).^2)+SEI_e(key_n,i,:);
+                    if ni>0
+                        for ms=1:(mask+1)
+                            SEI_joint(key_n,i,:)=((((delta_d_i(key_n,ms,:)).*delta_d_e(key_n,m,:)/(ne*ni))-(1/((mask+1)^2))).^2)+SEI_joint(key_n,i,:);
+                        end
+                    end
+                end
+                for key_g=1:256
+                     if (delta_d_e(key_n,m,key_g))>0 && ne>0
+                        LLR_E(key_n,i,key_g)=ne*q_e(m)*log2((delta_d_e(key_n,m,key_g)/ne)/(1/(mask+1)))+ LLR_E(key_n,i,key_g);
+                     end
+                     if (delta_d_i(key_n,m,key_g))>0 && ni>0
+                        LLR_I(key_n,i,key_g)=ni*q_i(m)*log2((delta_d_i(key_n,m,key_g)/ni)/(1/(mask+1)))+LLR_I(key_n,i,key_g);
+                        if (delta_d_e(key_n,m,key_g))>0 && ne>0
+                            for ms=1:(mask+1)
+                                            LLR_joint(key_n,i,key_g)=ni*q_i(ms)*ne*q_e(m)*log2((((delta_d_i(key_n,ms,key_g)).*delta_d_e(key_n,m,key_g)/(ne*ni))/(1/((mask+1)^2))))+LLR_joint(key_n,i,key_g);
+                            end
+                        end
+                     end
+                end
+            end
 
-
-
-
-
+```
+###Key Recovery
 
 
 
