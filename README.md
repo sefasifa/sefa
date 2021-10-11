@@ -3,8 +3,8 @@
 * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
   * [Regular Fault](https://github.com/sefasifa/sefa/blob/main/README.md#regular-fault) 
   * [Missrate](https://github.com/sefasifa/sefa#Missrate)
-  *  [Dummy Round](https://github.com/sefasifa/sefa#dummy-round)
-  * [Fault in Error-Correction mode](https://github.com/sefasifa/sefa#error-correction-mode) 
+  * [Dummy Round](https://github.com/sefasifa/sefa#dummy-round)
+  * [Error-Correction mode](https://github.com/sefasifa/sefa#error-correction-mode) 
 * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
 * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
 
@@ -138,11 +138,11 @@ if verbose_mode
     
 end
 ```
-**This part is used to creates a faulty/non-faulty cipher**
+**Faulty & Non-Faulty Cipher**
 
-Faults are injected at the beginning of round 10 in these three situations: Regular fault, missrate faults and Error-Correcting mode. In Dummy-Rounds situation, 
+Faults are injected at the beginning of round 10 in these three situations: Regular fault, missrate faults and Error-Correcting mode. In Dummy-Rounds, 
 faults can be injected in different rounds, or even in dummies. In cipher Functions, *faultee* shows faulty or non-faulty computations. When *faultee==0*, the cipher is correct
-and fault is not injected.
+and fault is not injected.[Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) 
 
 ```matlab
 function [ciphertext,partialstate,round_key] = cipher (plaintext, w, s_box, poly_mat, vargin,faultee,faultvalue)
