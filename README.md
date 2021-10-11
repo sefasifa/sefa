@@ -1,12 +1,12 @@
 # sefa
 ## Simulation
 * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
-  * Regular Fault 
-  * Fault by considering Missrate
-  * Fault by considering Dummy Round
-  * Fault in Error-Correction mode 
-* SEI and LLR Computation
-* Key-Recovery for a byte 
+  * [Regular Fault](https://github.com/sefasifa/sefa/blob/main/README.md#regular-fault) 
+  * [Missrate](https://github.com/sefasifa/sefa#Missrate)
+  *  [Dummy Round](https://github.com/sefasifa/sefa#dummy-round)
+  * [Fault in Error-Correction mode](https://github.com/sefasifa/sefa#error-correction-mode) 
+* [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
+* [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
 
 
 **Random Fault Value**
