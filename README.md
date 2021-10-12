@@ -590,7 +590,7 @@ sample_t=500;%number of random plaintext
 fb=2;%number of random bit-faults
 [key_col,cipherc,cipherf]=regularfault(sample_t,key_t,fb);% this function returns faulty and non faulty ciphertext
 [rank_eff_sei,rank_ineff_sei,rank_joint_sei,rank_eff_llr,rank_ineff_llr,rank_joint_llr]=sifa_sefa_calc(key_col,cipherc,cipherf,sample_t,key_t,fb);
-
+```
 Then we rank the key.
 
 ```matlab
