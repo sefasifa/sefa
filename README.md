@@ -496,7 +496,7 @@ cipherf=zeros(16,15000,100);
     end
 end
 ```
-<img src="https://user-images.githubusercontent.com/92181327/137039771-f18912ea-7766-491e-9639-c0659d27f563.JPG" width="900">
+<img src="https://user-images.githubusercontent.com/92181327/137039771-f18912ea-7766-491e-9639-c0659d27f563.JPG" width="500">
 
 
 #### Noisy Setup with Possible Missed Faults
@@ -508,7 +508,7 @@ random_f= round(Pe*rand(key_t,sample_t));
 random_f(:)=(random_f(:)<100-Pe);
 exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
 ```
-<img src="https://user-images.githubusercontent.com/92181327/137040129-e65d0190-e19d-4a6a-bf76-953ef81234f4.JPG" width="900">
+<img src="https://user-images.githubusercontent.com/92181327/137040129-e65d0190-e19d-4a6a-bf76-953ef81234f4.JPG" width="500">
 
 
 #### Protected Implementation with Error-Correction Techniques
@@ -520,7 +520,7 @@ We consider that in this mode ``` d' ``` bit faults can be corrected. In this ca
         faultee=0;
     end
 ```
-<img src="https://user-images.githubusercontent.com/92181327/137040206-ec19823f-a794-4901-bdfe-8250bf70a043.JPG" width="900">
+<img src="https://user-images.githubusercontent.com/92181327/137040206-ec19823f-a794-4901-bdfe-8250bf70a043.JPG" width="500">
 
 
 #### Protected Implementation with Dummy Rounds
@@ -538,7 +538,7 @@ We consider that in this mode ``` d' ``` bit faults can be corrected. In this ca
       faultee=fault_R+10;
   end
 ```
-<img src="https://user-images.githubusercontent.com/92181327/137040251-e2d55d19-d2a6-4ff3-98c1-60128df0a71f.JPG" width="900">
+<img src="https://user-images.githubusercontent.com/92181327/137040251-e2d55d19-d2a6-4ff3-98c1-60128df0a71f.JPG" width="500">
 
 
 ### SEI and LLR Computation
