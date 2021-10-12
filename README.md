@@ -317,7 +317,8 @@ random_f(:)=(random_f(:)<100-Pe);
 exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
 ```
 #### Dummy Round 
- In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. If the considered SEL_R which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, *faultee* shoulde be equal to zero, otherwise the round of injecteion is added to *faultee* to specifty the number of round in **cipher** function. 
+ In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. The attacker consider a round for injection which we define as 
+```matlab sel_R ``` If the considered SEL_R which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, *faultee* shoulde be equal to zero, otherwise the round of injecteion is added to *faultee* to specifty the number of round in **cipher** function. 
 
 ```matlab
   selected_rand=sort(round(randperm(k*10,10)));
@@ -343,7 +344,7 @@ We consider that in this mode d' bit faults can be corrected. In this case, when
 
 
 ### SEI and LLR Computation
- In this part we compute the inverse of CIPHERC to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. 
+ In this part we compute the inverse of CIPHERC to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. First, we should specify *delta_d_i* and *delta_d_e*.  In the attachment function is defined by sifa_sefa_calc.
 ```matlab
 for key_g=0:255
                 if isequal(cipherc(:,i,key_n),cipherf(:,i,key_n))
@@ -354,6 +355,10 @@ for key_g=0:255
                     delta_d_e(key_n,data_d_coll_e(key_n,key_g+1,eff)+1,key_g+1)=delta_d_e(key_n,data_d_coll_e(key_n,key_g+1,eff)+1,key_g+1)+1;
                 end 
             end 
+```
+
+```matlab
+            
             for m=1:(mask+1)
                 if ni>0
                     SEI_i(key_n,i,:)=(((delta_d_i(key_n,m,:)/ni)-(1/(mask+1))).^2)+SEI_i(key_n,i,:);
@@ -383,7 +388,7 @@ for key_g=0:255
 
 ```
 ### Key Recovery
-
+The key recovery in the simulation process 
 Here, we rank the key.
 
 ```matlab
