@@ -12,7 +12,7 @@
 **Random Fault Value**
 
  First of all we define fault value. Here we used the random number generator which is provided by matlab for random fault,. Since the Fault which is propsed in the attack is 
-```matlab fb``` bits *random And*. 
+``` fb``` bits *random And*. 
 
 ```matlab
 faultvalue=bitxor((256-(2^fb)),round(rand*((2^fb)-1)));
@@ -141,10 +141,10 @@ end
 ```
 **Faulty & Non-Faulty Cipher**
 
-[Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) encrypted in three modes which is determined by *faultee*.
-*   faultee is 0, cipher is correct.
-*   faultee is 1, fault is injected at the beginning of round 10.
-*   faultee is bigger than 1, fault is injected at the beginning of round faultee-10.
+[Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) encrypted in three modes which is determined by ``` faultee ```.
+*   ```faultee``` is 0, cipher is correct.
+*   ```faultee``` is 1, fault is injected at the beginning of round 10.
+*   ```faultee``` is bigger than 1, fault is injected at the beginning of round faultee-10.
 
 
 ```matlab
@@ -250,7 +250,7 @@ ciphertext = reshape (state, 1, 16);
 
 ```
 #### Regular-Fault 
-In all cases, key and palintext is considered as random. The total number of random key which is considered is ```matlab key_t ``` and ```matlab sample_t ``` shows number of random plaintext for each  ```matlab key_t ```. For each sample, faulty ```matlab (cipherc) ```matlab and non-faulty ```matlab (cipherf) ``` encryption is computed. In any faulty encryption ```matlab fb ```  bits is injected.   
+In all cases, key and palintext is considered as random. The total number of random key which is considered is ``` key_t ``` and ``` sample_t ``` shows number of random plaintext for each  ``` key_t ```. For each sample, faulty ``` (cipherc) ``` and non-faulty ``` (cipherf) ``` encryption is computed. In any faulty encryption ``` fb ```  bits is injected.   
 
 ```matlab
 function [key_col,cipherc,cipherf]=regularfault(sample_t,key_t,fb)
@@ -308,7 +308,7 @@ end
 
 
 #### Missrate 
- We define missrate such that, a fault can not be injected. So in this case, ```matlab faultee ``` should be 0. We define a random vector to create random 0 or 1 values for desired ```matlab missrate ```.
+ We define missrate such that, a fault can not be injected. So in this case, ``` faultee ``` should be 0. We define a random vector to create random 0 or 1 values for desired ``` missrate ```.
 
 ```matlab
 Pe=100*missrate;
@@ -318,7 +318,7 @@ exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
 ```
 #### Dummy Round 
  In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. The attacker consider a round for injection which we define as 
-```matlab sel_R ``` If the considered ```matlab SEL_R ``` which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, ```matlab faultee ``` shoulde be equal to zero, otherwise the round of injecteion is added to ```matlab faultee``` to specifty the number of round in ```matlab cipher ``` function. 
+``` sel_R ``` If the considered ``` SEL_R ``` which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, ``` faultee ``` shoulde be equal to zero, otherwise the round of injecteion is added to ``` faultee``` to specifty the number of round in ``` cipher ``` function. 
 
 ```matlab
   selected_rand=sort(round(randperm(k*10,10)));
@@ -332,7 +332,7 @@ exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
   end
 ```
 #### Error-Correction Mode
-We consider that in this mode ```matlab d' ``` bit faults can be corrected. In this case, when the HW of injection is less than ```matlab d' ```, plaintexte encrypted in non-faulty mode. 
+We consider that in this mode ``` d' ``` bit faults can be corrected. In this case, when the HW of injection is less than ``` d' ```, plaintexte encrypted in non-faulty mode. 
 
 ```matlab
     hw=8-sum(data_fault(:,:)==1);
@@ -344,7 +344,7 @@ We consider that in this mode ```matlab d' ``` bit faults can be corrected. In t
 
 
 ### SEI and LLR Computation
- In this part we compute the inverse of ```matlab cipherc ``` to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. First, we should compute ```matlab delta_d_i ``` ```matlab delta_d_e ```. Then SEI and LLR can be calculated. In the attachment function is defined by sifa_sefa_calc.
+ In this part we compute the inverse of ``` cipherc ``` to the input of Sbox in the begining of the round 10 by guessing 256 key-guesses. Then the computed inverse would be masked by AND. First, we should compute ``` delta_d_i ``` ``` delta_d_e ```. Then SEI and LLR can be calculated. In the attachment function is defined by sifa_sefa_calc.
 ```matlab
 for key_g=0:255
                 if isequal(cipherc(:,i,key_n),cipherf(:,i,key_n))
