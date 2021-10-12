@@ -594,10 +594,6 @@ Then we rank the key.
    rank_ineff_llr(key_n,i)=sum(LLR_I(key_n,i,:)>=LLR_I(key_n,i,key_b_0+1)); 
    rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
 ```
-
-
-<img src="Image/dummy.png" width="80">
-
-
+![noise-free]<img src="https://user-images.githubusercontent.com/92181327/137039771-f18912ea-7766-491e-9639-c0659d27f563.JPG" width="100" height="100">
 
 
