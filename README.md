@@ -595,8 +595,7 @@ Then we rank the key.
    rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
 ```
 
-[Noise-free](https://github.com/sefasifa/sefa/blob/main/simulation/Figure/Noise-free%20Setup)
-![Noise-free](sefa/simulation/Figure/Noise-free.jpg)
+![Noise-free](Image/Noise-free.jpg)
 
 
 
