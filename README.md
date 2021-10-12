@@ -11,7 +11,7 @@
 
 **Random Fault Value**
 
- First of all we define fault value. For random fault we used the random number generator which is provided by matlab ,. In the propsed attack 
+ First of all we define fault value. For random fault we used the random number generator which is provided by matlab. In the propsed attack 
 ``` fb``` bits *And* with an intermediate value. 
 
 ```matlab
