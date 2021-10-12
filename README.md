@@ -1,4 +1,4 @@
-# sefa
+# SEFA
 ## Simulation
 * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
   * [Noise-Free Setup](https://github.com/sefasifa/sefa#noise-free-setup) 
