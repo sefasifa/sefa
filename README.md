@@ -31,7 +31,7 @@ function [s_box, inv_s_box, w, poly_mat, inv_poly_mat] = aes_init(key_hex)
 [s_box, inv_s_box] = s_box_gen (1);
 
 % Create the round constant array
-rcon = rcon_gen (1);
+rcon = rcon_gen (1); 
 
 % % Convert the cipher key from hexadecimal (string) to decimal representation
    key = hex2dec(key_hex);
