@@ -1,10 +1,10 @@
 # sefa
 ## Simulation
 * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
-  * [Regular Fault](https://github.com/sefasifa/sefa/blob/main/README.md#regular-fault) 
-  * [Missrate](https://github.com/sefasifa/sefa#Missrate)
-  * [Dummy Round](https://github.com/sefasifa/sefa#dummy-round)
-  * [Error-Correction mode](https://github.com/sefasifa/sefa#error-correction-mode) 
+  * [Noise-Free Setup](https://github.com/sefasifa/sefa/blob/main/README.md#regular-fault) 
+  * [Noisy Setup with Possible Missed Faults](https://github.com/sefasifa/sefa#Missrate)
+  * [Protected Implementation with Error-Correction Techniques](https://github.com/sefasifa/sefa#dummy-round)
+  * [Protected Implementation with Dummy Rounds](https://github.com/sefasifa/sefa#error-correction-mode) 
 * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
 * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
 
@@ -440,7 +440,7 @@ state = add_round_key (state, round_key);
 ciphertext = reshape (state, 1, 16);
 
 ```
-#### Regular-Fault 
+#### Noise-Free Setup
 In all cases, key and palintext is considered as random. The total number of random key which is considered is ``` key_t ``` and ``` sample_t ``` shows number of random plaintext for each  ``` key_t ```. For each sample, faulty ``` (cipherc) ``` and non-faulty ``` (cipherf) ``` encryption is computed. In any faulty encryption ``` fb ```  bits is injected.   
 
 ```matlab
@@ -498,7 +498,7 @@ end
 ```
 
 
-#### Missrate 
+#### Noisy Setup with Possible Missed Faults
  We define missrate such that, a fault can not be injected. So in this case, ``` faultee ``` should be 0. We define a random vector to create random 0 or 1 values for desired ``` missrate ```.
 
 ```matlab
@@ -507,7 +507,17 @@ random_f= round(Pe*rand(key_t,sample_t));
 random_f(:)=(random_f(:)<100-Pe);
 exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
 ```
-#### Dummy Round 
+
+#### Protected Implementation with Error-Correction Techniques
+We consider that in this mode ``` d' ``` bit faults can be corrected. In this case, when the HW of injection is less than ``` d' ```, plaintexte encrypted in non-faulty mode. 
+
+```matlab
+    hw=8-sum(data_fault(:,:)==1);
+    if hw<=d'
+        faultee=0;
+    end
+```
+#### Protected Implementation with Dummy Rounds
  In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. The attacker consider a round for injection which we define as 
 ``` sel_R ``` If the considered ``` SEL_R ``` which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, ``` faultee ``` shoulde be equal to zero, otherwise the round of injecteion is added to ``` faultee``` to specifty the number of round in ``` cipher ``` function. 
 
@@ -522,16 +532,6 @@ exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
       faultee=fault_R+10;
   end
 ```
-#### Error-Correction Mode
-We consider that in this mode ``` d' ``` bit faults can be corrected. In this case, when the HW of injection is less than ``` d' ```, plaintexte encrypted in non-faulty mode. 
-
-```matlab
-    hw=8-sum(data_fault(:,:)==1);
-    if hw<=d'
-        faultee=0;
-    end
-```
-
 
 
 ### SEI and LLR Computation
@@ -575,7 +575,17 @@ for key_g=0:255
 
 ```
 ### Key Recovery
-The key recovery in the simulation process 
+For key recovery, two different procees should shaped. First faults should be injected in the desired locations. Then SEI or LLR should be calculated.
+
+```matlab
+key_t=100;%number of different keys that might attacker consider
+sample_t=500;%number of random plaintext 
+fb=2;%number of random bit-faults
+[key_col,cipherc,cipherf]=regularfault(sample_t,key_t,fb);% this function returns faulty and non faulty ciphertext
+[rank_eff_sei,rank_ineff_sei,rank_joint_sei,rank_eff_llr,rank_ineff_llr,rank_joint_llr]=sifa_sefa_calc(key_col,cipherc,cipherf,sample_t,key_t,fb);
+```
+
+
 Here, we rank the key.
 
 ```matlab
