@@ -6,7 +6,7 @@ d=2;% number of bits correction
 %%%%%%%%%%%%%%%following function returns faulty and non faulty ciphertext
 %%%%%%%%%%%%%%%by considereing error correction. number of correction is
 %%%%%%%%%%%%%%%specified by d
-% [key_col,cipherc,cipherf]=Errorcorrect(d,sample_t,key_t,fb)
+[key_col,cipherc,cipherf]=Errorcorrect(d,sample_t,key_t,fb)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
