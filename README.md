@@ -595,7 +595,7 @@ Then we rank the key.
    rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
 ```
 
-![Noise-free](Image/Noise-free.jpg)
+![dummy](Image/dummy.jpg)
 
 
 
