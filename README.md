@@ -496,6 +496,7 @@ cipherf=zeros(16,15000,100);
     end
 end
 ```
+<img src="https://user-images.githubusercontent.com/92181327/137039771-f18912ea-7766-491e-9639-c0659d27f563.JPG" width="900">
 
 
 #### Noisy Setup with Possible Missed Faults
@@ -507,6 +508,8 @@ random_f= round(Pe*rand(key_t,sample_t));
 random_f(:)=(random_f(:)<100-Pe);
 exactmissrate=sum(sum(random_f(1:key_t,:)))/sample_t*key_t;
 ```
+<img src="https://user-images.githubusercontent.com/92181327/137040129-e65d0190-e19d-4a6a-bf76-953ef81234f4.JPG" width="900">
+
 
 #### Protected Implementation with Error-Correction Techniques
 We consider that in this mode ``` d' ``` bit faults can be corrected. In this case, when the HW of injection is less than ``` d' ```, plaintexte encrypted in non-faulty mode. 
@@ -517,6 +520,9 @@ We consider that in this mode ``` d' ``` bit faults can be corrected. In this ca
         faultee=0;
     end
 ```
+<img src="https://user-images.githubusercontent.com/92181327/137040206-ec19823f-a794-4901-bdfe-8250bf70a043.JPG" width="900">
+
+
 #### Protected Implementation with Dummy Rounds
  In Dummy rounds, we create a random vector by K*10 elements. Then 10 random round is chosen and sorted. The attacker consider a round for injection which we define as 
 ``` sel_R ``` If the considered ``` SEL_R ``` which we injected faults is equal by the last sorted chosen round, then fault is useful; otherwise the fault is injected to other rounds or in dummy rounds. If fault is injected in dummy, ``` faultee ``` shoulde be equal to zero, otherwise the round of injecteion is added to ``` faultee``` to specifty the number of round in ``` cipher ``` function. 
@@ -532,6 +538,7 @@ We consider that in this mode ``` d' ``` bit faults can be corrected. In this ca
       faultee=fault_R+10;
   end
 ```
+<img src="https://user-images.githubusercontent.com/92181327/137040251-e2d55d19-d2a6-4ff3-98c1-60128df0a71f.JPG" width="900">
 
 
 ### SEI and LLR Computation
@@ -594,6 +601,5 @@ Then we rank the key.
    rank_ineff_llr(key_n,i)=sum(LLR_I(key_n,i,:)>=LLR_I(key_n,i,key_b_0+1)); 
    rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
 ```
-![noise-free]<img src="https://user-images.githubusercontent.com/92181327/137039771-f18912ea-7766-491e-9639-c0659d27f563.JPG" width="500">
 
 
