@@ -596,7 +596,7 @@ Then we rank the key.
 ```
 
 [Noise-free](https://github.com/sefasifa/sefa/blob/main/simulation/Figure/Noise-free%20Setup)
-!Noise-free](sefa/simulation/Figure/Noise-free Setup.jpg)
+!Noise-free](sefa/simulation/Figure/Noise-free.jpg)
 
 
 
