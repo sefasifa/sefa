@@ -334,8 +334,8 @@ end
 
 [Cipher](https://nevonprojects.com/aes-source-code-inmatlab/) encrypted in three modes which is determined by ``` faultee ```.
 *   ```faultee``` is 0, cipher is correct.
-*   ```faultee``` is 1, fault is injected at the beginning of round 10.
-*   ```faultee``` is bigger than 1, fault is injected at the beginning of round faultee-10.
+*   ```faultee``` is 1, the fault is injected at the beginning of round 10.
+*   ```faultee``` is bigger than 1, the fault is injected at the beginning of round faultee-10.
 
 
 ```matlab
