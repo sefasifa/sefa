@@ -1,12 +1,12 @@
 # SEFA
 * [Simulation](https://github.com/sefasifa/sefa#simulation)
-  * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
-   * [Noise-Free Setup](https://github.com/sefasifa/sefa#noise-free-setup) 
-   * [Noisy Setup with Possible Missed Faults](https://github.com/sefasifa/sefa#noisy-setup-with-possible-missed-faults)
-   * [Protected Implementation with Error-Correction Techniques](https://github.com/sefasifa/sefa#protected-implementation-with-error-correction-techniques)
-   * [Protected Implementation with Dummy Rounds](https://github.com/sefasifa/sefa#protected-implementation-with-dummy-rounds) 
- * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
- * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
+   * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
+     * [Noise-Free Setup](https://github.com/sefasifa/sefa#noise-free-setup) 
+     * [Noisy Setup with Possible Missed Faults](https://github.com/sefasifa/sefa#noisy-setup-with-possible-missed-faults)
+     * [Protected Implementation with Error-Correction Techniques](https://github.com/sefasifa/sefa#protected-implementation-with-error-correction-techniques)
+     * [Protected Implementation with Dummy Rounds](https://github.com/sefasifa/sefa#protected-implementation-with-dummy-rounds) 
+  * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
+  * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
 * [Practical_Attacks](https://github.com/sefasifa/sefa/tree/main/Practical_Attacks#practical-attack)
 
 ## Simulation
