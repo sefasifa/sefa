@@ -1,6 +1,5 @@
 # SEFA
-* Practical_Attacks
-* Simulation
+* [Simulation](https://github.com/sefasifa/sefa#simulation)
   * [Implement a faulty AES For SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
    * [Noise-Free Setup](https://github.com/sefasifa/sefa#noise-free-setup) 
    * [Noisy Setup with Possible Missed Faults](https://github.com/sefasifa/sefa#noisy-setup-with-possible-missed-faults)
@@ -8,6 +7,7 @@
    * [Protected Implementation with Dummy Rounds](https://github.com/sefasifa/sefa#protected-implementation-with-dummy-rounds) 
  * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
  * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
+* [Practical_Attacks](https://github.com/sefasifa/sefa/tree/main/Practical_Attacks#practical-attack)
 
 ## Simulation
 **Random Fault Value**
@@ -602,8 +602,7 @@ Then we rank the key.
    rank_ineff_llr(key_n,i)=sum(LLR_I(key_n,i,:)>=LLR_I(key_n,i,key_b_0+1)); 
    rank_joint_llr(key_n,i)=sum(LLR_joint(key_n,i,:)>=LLR_joint(key_n,i,key_b_0+1));
 ```
-## Practical Attacks
-  [Documents and Code](https://github.com/sefasifa/sefa/tree/main/Practical_Attacks#practical-attack)
+
 
 
 
