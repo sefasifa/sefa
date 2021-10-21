@@ -1,6 +1,6 @@
 # SEFA
 * [Simulation](https://github.com/sefasifa/sefa#simulation)
-   * [Implemention of a Faulty AES for SIFA and SEFA](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
+   * [Implementation ](https://github.com/sefasifa/sefa/blob/main/README.md#implement-a-faulty-aes-for-sifa-and-sefa) 
      * [Noise-Free Setup](https://github.com/sefasifa/sefa#noise-free-setup) 
      * [Noisy Setup with Possible Missed Faults](https://github.com/sefasifa/sefa#noisy-setup-with-possible-missed-faults)
      * [Protected Implementation with Error-Correction Techniques](https://github.com/sefasifa/sefa#protected-implementation-with-error-correction-techniques)
