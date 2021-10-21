@@ -6,13 +6,13 @@
      * [Protected Implementation with Error-Correction Techniques](https://github.com/sefasifa/sefa#protected-implementation-with-error-correction-techniques)
      * [Protected Implementation with Dummy Rounds](https://github.com/sefasifa/sefa#protected-implementation-with-dummy-rounds) 
   * [SEI and LLR Computation](https://github.com/sefasifa/sefa#sei-and-llr-computation)
-  * [Key-Recovery for a byte](https://github.com/sefasifa/sefa#key-recovery) 
+  * [Key-Recovery for a Byte](https://github.com/sefasifa/sefa#key-recovery) 
 * [Practical_Attacks](https://github.com/sefasifa/sefa/tree/main/Practical_Attacks#practical-attack)
 
 ## Simulation
 **Random Fault Value**
 
- First of all we define fault value. For random fault we used the random number generator which is provided by matlab. In the propsed attack 
+ First of all, we define fault value. For random fault, we used the random number generator which is provided by Matlab. In the proposed attack 
 ``` fb``` bits *And* with an intermediate value. 
 
 ```matlab
